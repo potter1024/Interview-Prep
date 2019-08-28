@@ -126,22 +126,14 @@ int main()
     // freopen("input.txt","w",stdout);
 
     vector<int> A{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
-    int n=A.size(),ans=A.size();
-    cout<<n<<endl;
+    int n=A.size();
     for(int i=0;i<A.size();i++)
     {
-        int j=i,check=0,count=0;
+        int j=i;
         while(A[j]==A[i] && j<A.size())
-        {
             j++;
-            check=1;
-            count++;
-        }
-        cout<<i<<" "<<j<<endl;
         A.erase(A.begin()+i+1,A.begin()+j);
-        ans-=count-1;
     }
     output(A,A.size());
     cout<<endl;
-    cout<<ans;
 }
