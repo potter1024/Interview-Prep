@@ -105,9 +105,7 @@ vi v(1000);
 ll take(int index,int taken,int total)
 {
     if(index==n-1)
-    {
         return min(abs(2*(taken+v[index])-total),abs(2*taken-total));
-    }
     return min(take(index+1,taken+v[index],total),take(index+1,taken,total));
 }
 int32_t main()
