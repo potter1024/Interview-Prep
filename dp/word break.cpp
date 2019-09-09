@@ -106,13 +106,14 @@ bool recurse(string s,int i)
 {
     if(i==s.size())
         return 1;
+    bool x=0;
     for(int j=i;j<s.size();j++)
     {
         string temp(s.begin()+i,s.begin()+j+1);
         if(disc[temp])
-            return recurse(s,j+1);
+            x |= recurse(s,j+1);
     }
-    return 0;
+    return x;
 }
 int32_t main()
 {
