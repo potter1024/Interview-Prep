@@ -119,8 +119,8 @@ int32_t main()
     cin>>n>>m>>x;
     int dp[n+1][x+1];
     reset(dp,0);
-    for(int i=1;i<=m && i<=x;i++)
-        dp[1][i]=1;
+    for(int k=1;k<=m && k<=x;k++)
+        dp[1][k]=1;
     for(int i=2;i<=n;i++)
         for(int j=1;j<=x;j++)
             for(int k=1;k<=m && k<=x;k++)
