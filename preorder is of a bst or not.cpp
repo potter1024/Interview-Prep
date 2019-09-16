@@ -60,7 +60,10 @@ int main()
     for(ll i=0;i<n;i++)
     {
         if(v[i]<root)
+        {
+            cout<<"NO";
             return 0;
+        }
         while(!s.empty() && s.top()<v[i])
         {
             root=s.top();
@@ -68,4 +71,5 @@ int main()
         }
         s.push(v[i]);
     }
+    cout<<"YES";
 }
