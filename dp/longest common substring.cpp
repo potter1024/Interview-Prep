@@ -68,18 +68,6 @@ ll max(ll a,ll b)
 {
     return a>b?a:b;
 }
-string a,b;
-int lcs(int i,int j)
-{
-    if(i==-1 || j==-1)
-        return 0;
-    int ret=0;
-    if(a[i]==b[j])
-        ret=lcs(i-1,j-1)+1;
-    ret=max(ret,lcs(i-1,j));
-    ret=max(ret,lcs(i,j-1));
-    return ret;
-}
 int main()
 {
     she_taught_me_to_code
@@ -87,9 +75,27 @@ int main()
     // freopen("input.txt","r",stdin);
     // freopen("input.txt","w",stdout);
 
+    string a,b;
     cin>>a>>b;
-    cout<<lcs(a.size()-1,b.size()-1)<<endl;
+    ll dp[1000][1000]={};
+    ll ans=0;
+    for(ll i=0;i<a.size();i++)
+    {
+        for(ll j=0;j<b.size();j++)
+        {                                   // finding longest common suffix of all prefixes
+            if(a[i]==b[j])                  // dp[i][j] represents length of longest common 
+            {                               // suffix of strings a(0,i) and b(0,j)
+                if(i==0 || j==0)
+                    dp[i][j]=1;
+                else
+                    dp[i][j]=dp[i-1][j-1]+1;
+            }
+            else
+                dp[i][j]=0;
+            ans=max(ans,dp[i][j]);
+        }
+    }
+    cout<<ans<<endl;
 }
-
 
 
