@@ -56,6 +56,7 @@ void print(node* head){
         cout<<current->data<<" ";
         current=current->next;
     }
+    cout<<endl;
 }
 void find_middle(node* head){
     node* hare=head;
@@ -88,7 +89,8 @@ void delete_middle(node* head){
     }
 }
 void remove_duplicates(node* head){
-    for(node* current=head;current;){
+    node* current=head;
+    while(current){
         node* start=current;
         int x=current->data;
         while(current && current->data==x){
@@ -175,6 +177,118 @@ bool checkPalindrome(node* head){
     tortoise->next=reverseLL(tortoise->next);
     return 1;
 }
+node* insertInRightPlace(int val,node* head){
+    if(!head){
+        node* n=new node;
+        n->data=val;
+        n->next=NULL;
+        return n;
+    }
+    if(head->data<val){
+        head->next=insertInRightPlace(val,head->next);
+        return head;
+    }
+    else{
+        node* n=new node;
+        n->data=val;
+        n->next=head;
+        return n;
+    }
+}
+node* mergeAtAlternatePositions(node* node1,node* node2,bool flag){
+    if(!node1){
+        return node2;
+    }
+    if(!node2){
+        return node1;
+    }
+    if(flag){   // means first list is to be appended
+        node1->next=mergeAtAlternatePositions(node1->next,node2,!flag);
+        return node1;
+    }
+    else{
+        node2->next=mergeAtAlternatePositions(node1,node2->next,!flag);
+        return node2;
+    }
+}
+node* split(node* head){
+    node* hare=head;
+    node* tortoise=head;
+    while(hare->next !=NULL && hare->next->next!=NULL){
+        hare=hare->next->next;
+        tortoise=tortoise->next;
+    }
+    if(hare->next==NULL){
+        node* r=tortoise->next;
+        tortoise->next=NULL;
+        return r;
+    }
+    else{
+        node* r=tortoise->next;
+        tortoise->next=NULL;
+        return r;
+    }
+}
+node* converge(node* head1,node* head2){
+    if(!head1){
+        return head2;
+    }
+    if(!head2){
+        return head1;
+    }
+    if(head1->data<=head2->data){
+        head1->next=converge(head1->next,head2);
+        return head1;
+    }
+    else{
+        head2->next=converge(head1,head2->next);
+        return head2;
+    }
+}
+node* mergeSort(node* head){
+    if(!head || head->next==NULL){
+        return head;
+    }
+    return converge(head,split(head));
+}
+void deleteLoop(node* head){
+    node* hare=head->next;
+    node* turtle=head;
+    while(hare!=turtle){
+        if(!hare || hare->next==NULL || hare->next->next==NULL){
+            return;
+        }
+        hare=hare->next->next;
+        turtle=turtle->next;
+    }
+    turtle=turtle->next;
+    int k=1;
+    while(turtle!=hare){
+        turtle=turtle->next;
+        k++;
+    }
+    hare=head;
+    turtle=head;
+    while(k--){
+        hare=hare->next;
+    }
+    while(1){
+        turtle=turtle->next;
+        if(hare->next==turtle){
+            hare->next=NULL;
+            return;
+        }
+        hare=hare->next;
+    }
+}
+ll convert(ll n){
+    ll count=0;
+    while(n){
+        n/=2;
+        count++;
+    }
+    return count;
+}
 int32_t main(){
 
     she_taught_me_to_code
@@ -182,5 +296,5 @@ int32_t main(){
     // freopen("input.txt","r",stdin);
     // freopen("input.txt","w",stdout);
 
-
+    
 }
